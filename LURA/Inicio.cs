@@ -25,9 +25,7 @@ namespace LURA
         {
             InitializeComponent();
             // Obtener la ruta de la carpeta "fotos" en la misma ubicación que la aplicación
-            folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fotos");
-
-            
+            folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fotos");       
         }
 
 
