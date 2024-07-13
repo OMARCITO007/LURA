@@ -18,9 +18,6 @@ namespace LURA
         public MongoDBHelper()
         //public MongoDBHelper(string connectionString, string databaseName, string collectionName)
         {
-            //var client = new MongoClient(connectionString);
-            //var database = client.GetDatabase(databaseName);
-            //_fotosCollection = database.GetCollection<BsonDocument>(collectionName);
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("lura");
             _fotosCollection = database.GetCollection<BsonDocument>("fotos");
@@ -38,6 +35,22 @@ namespace LURA
                 Distancia = bson["distancia"].AsString,
                 NombreArchivo = bson["nombre_archivo"].AsString
             }).ToList();
+        }
+
+        //ejemplo:
+        //mongoHandler.InsertDocument(DateTime.UtcNow, "19.4326", "-99.1332", "10 km", "imagen001.jpg");
+        public void InsertDocument(DateTime fecha, string latitud, string longitud, string distancia, string nombreArchivo)
+        {
+            var document = new BsonDocument
+        {
+            { "fecha", fecha },
+            { "latitud", latitud },
+            { "longitud", longitud },
+            { "distancia", distancia },
+            { "nombre_archivo", nombreArchivo }
+        };
+
+            _fotosCollection.InsertOne(document);
         }
     }
 

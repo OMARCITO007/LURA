@@ -10,13 +10,10 @@ namespace LURA
     public partial class PANEL : Form
     {
 
-        public event EventHandler UserControlChanged;
-
         public PANEL()
         {
             InitializeComponent();
             ControlUss(new Inicio());
-            this.FormClosing += new FormClosingEventHandler(PANEL_FormClosing);
         }
       
         private void ControlUss (UserControl userControl) 
@@ -24,9 +21,6 @@ namespace LURA
             pantallas.Controls.Clear();
             userControl.Dock = DockStyle.Fill; 
             pantallas.Controls.Add(userControl);
-            // Disparar el evento UserControlChanged
-            UserControlChanged?.Invoke(this, EventArgs.Empty);
-
         }
 
         private void btn_inicio_Click(object sender, EventArgs e)

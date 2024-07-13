@@ -137,7 +137,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(227, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(859, 41);
+            this.panel3.Size = new System.Drawing.Size(891, 41);
             this.panel3.TabIndex = 5;
             // 
             // nightControlBox1
@@ -155,7 +155,7 @@
             this.nightControlBox1.EnableMaximizeColor = System.Drawing.Color.Black;
             this.nightControlBox1.EnableMinimizeButton = true;
             this.nightControlBox1.EnableMinimizeColor = System.Drawing.Color.Black;
-            this.nightControlBox1.Location = new System.Drawing.Point(720, 0);
+            this.nightControlBox1.Location = new System.Drawing.Point(752, 0);
             this.nightControlBox1.MaximizeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.nightControlBox1.MaximizeHoverForeColor = System.Drawing.Color.White;
             this.nightControlBox1.MinimizeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -169,14 +169,14 @@
             this.pantallas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pantallas.Location = new System.Drawing.Point(227, 41);
             this.pantallas.Name = "pantallas";
-            this.pantallas.Size = new System.Drawing.Size(859, 760);
+            this.pantallas.Size = new System.Drawing.Size(891, 760);
             this.pantallas.TabIndex = 7;
             // 
             // PANEL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1086, 801);
+            this.ClientSize = new System.Drawing.Size(1118, 801);
             this.Controls.Add(this.pantallas);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);

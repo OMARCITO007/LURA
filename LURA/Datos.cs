@@ -20,19 +20,10 @@ namespace LURA
         public Datos()
         {
             InitializeComponent();
-            InitializeMongoDB();
+            _mongoDBHelper = new MongoDBHelper();
             LoadFotos();
             // Vincular el evento DataBindingComplete
             fotosDataGridView.DataBindingComplete += FotosDataGridView_DataBindingComplete;
-        }
-
-        private void InitializeMongoDB()
-        {
-            //string connectionString = "mongodb://localhost:27017"; // Reemplaza con tu cadena de conexión
-            //string databaseName = "lura"; // Reemplaza con el nombre de tu base de datos
-            //string collectionName = "fotos"; // Nombre de la colección
-            //_mongoDBHelper = new MongoDBHelper(connectionString, databaseName, collectionName);
-            _mongoDBHelper = new MongoDBHelper();
         }
 
         private void LoadFotos()

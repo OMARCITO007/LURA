@@ -70,7 +70,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(0, 653);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(825, 94);
+            this.panel4.Size = new System.Drawing.Size(881, 94);
             this.panel4.TabIndex = 38;
             // 
             // list_gps
@@ -78,7 +78,7 @@
             this.list_gps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.list_gps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.list_gps.FormattingEnabled = true;
-            this.list_gps.Location = new System.Drawing.Point(524, 48);
+            this.list_gps.Location = new System.Drawing.Point(588, 48);
             this.list_gps.Name = "list_gps";
             this.list_gps.Size = new System.Drawing.Size(120, 21);
             this.list_gps.TabIndex = 12;
@@ -91,13 +91,13 @@
             this.btn_conectar_gps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_conectar_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_conectar_gps.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_gps.Location = new System.Drawing.Point(656, 43);
+            this.btn_conectar_gps.Location = new System.Drawing.Point(720, 43);
             this.btn_conectar_gps.Name = "btn_conectar_gps";
-            this.btn_conectar_gps.Size = new System.Drawing.Size(100, 30);
+            this.btn_conectar_gps.Size = new System.Drawing.Size(128, 30);
             this.btn_conectar_gps.TabIndex = 11;
             this.btn_conectar_gps.Text = "Conectar";
             this.btn_conectar_gps.UseVisualStyleBackColor = false;
-
+            this.btn_conectar_gps.Click += new System.EventHandler(this.btn_conectar_gps_Click);
             // 
             // list_usb_encoder
             // 
@@ -119,19 +119,20 @@
             this.btn_conectar_enc.ForeColor = System.Drawing.Color.White;
             this.btn_conectar_enc.Location = new System.Drawing.Point(160, 43);
             this.btn_conectar_enc.Name = "btn_conectar_enc";
-            this.btn_conectar_enc.Size = new System.Drawing.Size(100, 30);
+            this.btn_conectar_enc.Size = new System.Drawing.Size(128, 30);
             this.btn_conectar_enc.TabIndex = 9;
             this.btn_conectar_enc.Text = "Conectar";
             this.btn_conectar_enc.UseVisualStyleBackColor = false;
+            this.btn_conectar_enc.Click += new System.EventHandler(this.btn_conectar_enc_Click);
             // 
             // btn_capture
             // 
             this.btn_capture.BackColor = System.Drawing.Color.Salmon;
             this.btn_capture.FlatAppearance.BorderSize = 0;
             this.btn_capture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_capture.Location = new System.Drawing.Point(409, 14);
+            this.btn_capture.Location = new System.Drawing.Point(445, 14);
             this.btn_capture.Name = "btn_capture";
-            this.btn_capture.Size = new System.Drawing.Size(100, 23);
+            this.btn_capture.Size = new System.Drawing.Size(128, 23);
             this.btn_capture.TabIndex = 8;
             this.btn_capture.Text = "Foto";
             this.btn_capture.UseVisualStyleBackColor = false;
@@ -142,9 +143,9 @@
             this.list_gp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.list_gp.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
             this.list_gp.FormattingEnabled = true;
-            this.list_gp.Location = new System.Drawing.Point(277, 48);
+            this.list_gp.Location = new System.Drawing.Point(302, 48);
             this.list_gp.Name = "list_gp";
-            this.list_gp.Size = new System.Drawing.Size(120, 23);
+            this.list_gp.Size = new System.Drawing.Size(127, 23);
             this.list_gp.TabIndex = 3;
             // 
             // btn_conectar_gp
@@ -154,9 +155,9 @@
             this.btn_conectar_gp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_conectar_gp.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_conectar_gp.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_gp.Location = new System.Drawing.Point(409, 43);
+            this.btn_conectar_gp.Location = new System.Drawing.Point(445, 43);
             this.btn_conectar_gp.Name = "btn_conectar_gp";
-            this.btn_conectar_gp.Size = new System.Drawing.Size(100, 30);
+            this.btn_conectar_gp.Size = new System.Drawing.Size(128, 30);
             this.btn_conectar_gp.TabIndex = 1;
             this.btn_conectar_gp.Text = "Conectar";
             this.btn_conectar_gp.UseVisualStyleBackColor = false;
@@ -180,7 +181,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(825, 140);
+            this.panel1.Size = new System.Drawing.Size(881, 140);
             this.panel1.TabIndex = 39;
             // 
             // label5
@@ -321,7 +322,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 140);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(825, 513);
+            this.panel2.Size = new System.Drawing.Size(881, 513);
             this.panel2.TabIndex = 40;
             // 
             // gp_camera
@@ -330,7 +331,7 @@
             this.gp_camera.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gp_camera.ErrorImage = global::LURA.Properties.Resources.Group_245;
             this.gp_camera.InitialImage = global::LURA.Properties.Resources.Group_245;
-            this.gp_camera.Location = new System.Drawing.Point(54, 16);
+            this.gp_camera.Location = new System.Drawing.Point(98, 15);
             this.gp_camera.Name = "gp_camera";
             this.gp_camera.Size = new System.Drawing.Size(720, 480);
             this.gp_camera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -346,7 +347,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
             this.Name = "Inicio";
-            this.Size = new System.Drawing.Size(825, 747);
+            this.Size = new System.Drawing.Size(881, 747);
             this.Load += new System.EventHandler(this.Inicio_Load);
             this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
