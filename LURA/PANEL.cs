@@ -9,8 +9,7 @@ namespace LURA
 {
     public partial class PANEL : Form
     {
-        private FilterInfoCollection videoDevices;
-        private VideoCaptureDevice videoSource;
+
         public event EventHandler UserControlChanged;
 
         public PANEL()
