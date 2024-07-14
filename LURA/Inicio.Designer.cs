@@ -70,7 +70,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(0, 653);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(881, 94);
+            this.panel4.Size = new System.Drawing.Size(981, 94);
             this.panel4.TabIndex = 38;
             // 
             // list_gps
@@ -78,7 +78,7 @@
             this.list_gps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.list_gps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.list_gps.FormattingEnabled = true;
-            this.list_gps.Location = new System.Drawing.Point(588, 48);
+            this.list_gps.Location = new System.Drawing.Point(656, 51);
             this.list_gps.Name = "list_gps";
             this.list_gps.Size = new System.Drawing.Size(120, 21);
             this.list_gps.TabIndex = 12;
@@ -91,7 +91,7 @@
             this.btn_conectar_gps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_conectar_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_conectar_gps.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_gps.Location = new System.Drawing.Point(720, 43);
+            this.btn_conectar_gps.Location = new System.Drawing.Point(788, 46);
             this.btn_conectar_gps.Name = "btn_conectar_gps";
             this.btn_conectar_gps.Size = new System.Drawing.Size(128, 30);
             this.btn_conectar_gps.TabIndex = 11;
@@ -104,7 +104,7 @@
             this.list_usb_encoder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.list_usb_encoder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.list_usb_encoder.FormattingEnabled = true;
-            this.list_usb_encoder.Location = new System.Drawing.Point(27, 48);
+            this.list_usb_encoder.Location = new System.Drawing.Point(95, 51);
             this.list_usb_encoder.Name = "list_usb_encoder";
             this.list_usb_encoder.Size = new System.Drawing.Size(120, 21);
             this.list_usb_encoder.TabIndex = 10;
@@ -117,7 +117,7 @@
             this.btn_conectar_enc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_conectar_enc.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_conectar_enc.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_enc.Location = new System.Drawing.Point(160, 43);
+            this.btn_conectar_enc.Location = new System.Drawing.Point(228, 46);
             this.btn_conectar_enc.Name = "btn_conectar_enc";
             this.btn_conectar_enc.Size = new System.Drawing.Size(128, 30);
             this.btn_conectar_enc.TabIndex = 9;
@@ -130,7 +130,7 @@
             this.btn_capture.BackColor = System.Drawing.Color.Salmon;
             this.btn_capture.FlatAppearance.BorderSize = 0;
             this.btn_capture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_capture.Location = new System.Drawing.Point(445, 14);
+            this.btn_capture.Location = new System.Drawing.Point(513, 17);
             this.btn_capture.Name = "btn_capture";
             this.btn_capture.Size = new System.Drawing.Size(128, 23);
             this.btn_capture.TabIndex = 8;
@@ -143,7 +143,7 @@
             this.list_gp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.list_gp.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
             this.list_gp.FormattingEnabled = true;
-            this.list_gp.Location = new System.Drawing.Point(302, 48);
+            this.list_gp.Location = new System.Drawing.Point(370, 51);
             this.list_gp.Name = "list_gp";
             this.list_gp.Size = new System.Drawing.Size(127, 23);
             this.list_gp.TabIndex = 3;
@@ -155,7 +155,7 @@
             this.btn_conectar_gp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_conectar_gp.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_conectar_gp.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_gp.Location = new System.Drawing.Point(445, 43);
+            this.btn_conectar_gp.Location = new System.Drawing.Point(513, 46);
             this.btn_conectar_gp.Name = "btn_conectar_gp";
             this.btn_conectar_gp.Size = new System.Drawing.Size(128, 30);
             this.btn_conectar_gp.TabIndex = 1;
@@ -181,7 +181,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(881, 140);
+            this.panel1.Size = new System.Drawing.Size(981, 140);
             this.panel1.TabIndex = 39;
             // 
             // label5
@@ -190,7 +190,7 @@
             this.label5.BackColor = System.Drawing.Color.Gray;
             this.label5.Font = new System.Drawing.Font("Arial Unicode MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(527, 106);
+            this.label5.Location = new System.Drawing.Point(606, 106);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(150, 15);
             this.label5.TabIndex = 48;
@@ -202,7 +202,7 @@
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox5.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox5.Location = new System.Drawing.Point(488, 62);
+            this.textBox5.Location = new System.Drawing.Point(567, 62);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(230, 60);
@@ -217,7 +217,7 @@
             this.iniciar_medida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iniciar_medida.Font = new System.Drawing.Font("Arial Rounded MT Bold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.iniciar_medida.ForeColor = System.Drawing.Color.White;
-            this.iniciar_medida.Location = new System.Drawing.Point(348, 63);
+            this.iniciar_medida.Location = new System.Drawing.Point(427, 63);
             this.iniciar_medida.Name = "iniciar_medida";
             this.iniciar_medida.Size = new System.Drawing.Size(134, 58);
             this.iniciar_medida.TabIndex = 46;
@@ -231,7 +231,7 @@
             this.zero_pulsos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.zero_pulsos.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.zero_pulsos.ForeColor = System.Drawing.Color.White;
-            this.zero_pulsos.Location = new System.Drawing.Point(618, 17);
+            this.zero_pulsos.Location = new System.Drawing.Point(697, 17);
             this.zero_pulsos.Name = "zero_pulsos";
             this.zero_pulsos.Size = new System.Drawing.Size(100, 30);
             this.zero_pulsos.TabIndex = 45;
@@ -242,7 +242,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(345, 23);
+            this.label4.Location = new System.Drawing.Point(424, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 18);
             this.label4.TabIndex = 44;
@@ -251,7 +251,7 @@
             // pulsos_encoder
             // 
             this.pulsos_encoder.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.pulsos_encoder.Location = new System.Drawing.Point(488, 22);
+            this.pulsos_encoder.Location = new System.Drawing.Point(567, 22);
             this.pulsos_encoder.Name = "pulsos_encoder";
             this.pulsos_encoder.Size = new System.Drawing.Size(111, 23);
             this.pulsos_encoder.TabIndex = 43;
@@ -262,7 +262,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(125, 103);
+            this.label3.Location = new System.Drawing.Point(204, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 18);
             this.label3.TabIndex = 42;
@@ -271,7 +271,7 @@
             // longitud_gps
             // 
             this.longitud_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.longitud_gps.Location = new System.Drawing.Point(214, 102);
+            this.longitud_gps.Location = new System.Drawing.Point(293, 102);
             this.longitud_gps.Name = "longitud_gps";
             this.longitud_gps.Size = new System.Drawing.Size(111, 23);
             this.longitud_gps.TabIndex = 41;
@@ -281,7 +281,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(125, 63);
+            this.label2.Location = new System.Drawing.Point(204, 63);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 18);
             this.label2.TabIndex = 40;
@@ -290,7 +290,7 @@
             // latitud_gps
             // 
             this.latitud_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.latitud_gps.Location = new System.Drawing.Point(214, 62);
+            this.latitud_gps.Location = new System.Drawing.Point(293, 62);
             this.latitud_gps.Name = "latitud_gps";
             this.latitud_gps.Size = new System.Drawing.Size(111, 23);
             this.latitud_gps.TabIndex = 39;
@@ -300,7 +300,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(125, 23);
+            this.label1.Location = new System.Drawing.Point(204, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 18);
             this.label1.TabIndex = 38;
@@ -309,7 +309,7 @@
             // distancia
             // 
             this.distancia.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.distancia.Location = new System.Drawing.Point(214, 22);
+            this.distancia.Location = new System.Drawing.Point(293, 22);
             this.distancia.Name = "distancia";
             this.distancia.Size = new System.Drawing.Size(111, 23);
             this.distancia.TabIndex = 37;
@@ -322,7 +322,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 140);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(881, 513);
+            this.panel2.Size = new System.Drawing.Size(981, 513);
             this.panel2.TabIndex = 40;
             // 
             // gp_camera
@@ -331,7 +331,7 @@
             this.gp_camera.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gp_camera.ErrorImage = global::LURA.Properties.Resources.Group_245;
             this.gp_camera.InitialImage = global::LURA.Properties.Resources.Group_245;
-            this.gp_camera.Location = new System.Drawing.Point(98, 15);
+            this.gp_camera.Location = new System.Drawing.Point(160, 16);
             this.gp_camera.Name = "gp_camera";
             this.gp_camera.Size = new System.Drawing.Size(720, 480);
             this.gp_camera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -347,7 +347,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
             this.Name = "Inicio";
-            this.Size = new System.Drawing.Size(881, 747);
+            this.Size = new System.Drawing.Size(981, 747);
             this.Load += new System.EventHandler(this.Inicio_Load);
             this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

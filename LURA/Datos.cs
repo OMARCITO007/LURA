@@ -17,85 +17,80 @@ namespace LURA
     public partial class Datos : UserControl
     {
         private MongoDBHelper _mongoDBHelper;
+        private List<Foto> _fotos;
         public Datos()
         {
             InitializeComponent();
             _mongoDBHelper = new MongoDBHelper();
+            _fotos = _mongoDBHelper.GetFotos(); // Obtener todas las fotos al inicio
             LoadFotos();
-            // Vincular el evento DataBindingComplete
-            fotosDataGridView.DataBindingComplete += FotosDataGridView_DataBindingComplete;
         }
 
         private void LoadFotos()
         {
-            List<Foto> fotos = _mongoDBHelper.GetFotos();
-            var bindingList = new BindingList<Foto>(fotos);
+            // Obtener la fecha actual
+            DateTime fechaActual = DateTime.Today;
+            // Filtrar las fotos por la fecha actual
+            var fotosFechaActual = _fotos.Where(f => f.Fecha.Date == fechaActual).ToList();
+            //var bindingList = new BindingList<Foto>(_fotos); //este es para que muestre datos de todas las fechas
+            // Crear el BindingList y BindingSource con las fotos filtradas
+            var bindingList = new BindingList<Foto>(fotosFechaActual);
             var source = new BindingSource(bindingList, null);
-            fotosDataGridView.DataSource = source;
-
-          
-        }
-
-        private void FotosDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            // Opcional: Formatea las columnas del DataGridView según tus necesidades
             fotosDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // Asegúrate de que todas las columnas existen antes de configurarlas
-            if (fotosDataGridView.Columns.Contains("_id"))
-            {
-                fotosDataGridView.Columns["_id"].HeaderText = "ID";
-            }
-            if (fotosDataGridView.Columns.Contains("fecha"))
-            {
-                fotosDataGridView.Columns["fecha"].HeaderText = "Fecha";
-            }
-            if (fotosDataGridView.Columns.Contains("latitud"))
-            {
-                fotosDataGridView.Columns["latitud"].HeaderText = "Latitud";
-            }
-            if (fotosDataGridView.Columns.Contains("longitud"))
-            {
-                fotosDataGridView.Columns["longitud"].HeaderText = "Longitud";
-            }
-            if (fotosDataGridView.Columns.Contains("distancia"))
-            {
-                fotosDataGridView.Columns["distancia"].HeaderText = "Distancia";
-            }
-            if (fotosDataGridView.Columns.Contains("nombre_archivo"))
-            {
-                fotosDataGridView.Columns["nombre_archivo"].HeaderText = "Nombre de Archivo";
-            }
+            fotosDataGridView.DataSource = source;
         }
+
+        private void filtro_fecha_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime fechaSeleccionada = filtro_fecha.Value.Date;
+            // Filtrar las fotos por la fecha seleccionada
+            var fotosFiltradas = _fotos.Where(f => f.Fecha.Date == fechaSeleccionada).ToList();
+            // Actualizar el DataGridView con las fotos filtradas
+            var bindingList = new BindingList<Foto>(fotosFiltradas);
+            var source = new BindingSource(bindingList, null);
+            fotosDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            fotosDataGridView.DataSource = source;
+        }
+
 
         private void ver_foto_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in fotosDataGridView.SelectedRows)
             {
                 // Obtener el nombre del archivo de la celda correspondiente
-                string nombreArchivo = row.Cells["NombreArchivo"].Value.ToString();
-                // Construir la ruta completa del archivo en la carpeta "fotos"
-                string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fotos");
-                string imagePath = Path.Combine(folderPath, nombreArchivo);
+                string nombreArchivo = row.Cells["NombreArchivo"].Value?.ToString();
 
-                // Verificar si el archivo existe
-                if (File.Exists(imagePath))
+                if (!string.IsNullOrEmpty(nombreArchivo))
                 {
-                    try
+                    // Construir la ruta completa del archivo en la carpeta "fotos"
+                    string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fotos");
+                    string imagePath = Path.Combine(folderPath, nombreArchivo);
+                    // Verificar si el archivo existe
+                    if (File.Exists(imagePath))
                     {
-                        // Abrir la imagen en la aplicación de fotos de Windows
-                        Process.Start("explorer.exe", imagePath);
+                        try
+                        {
+                            // Abrir la imagen en la aplicación de fotos de Windows
+                            Process.Start("explorer.exe", imagePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al abrir la imagen: {ex.Message}", "Error");
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"Error al abrir la imagen: {ex.Message}", "Error");
+                        MessageBox.Show("La imagen no se encontró en la carpeta 'fotos'.", "Error");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("La imagen no se encontró en la carpeta 'fotos'.", "Error");
+                    MessageBox.Show("No se ha seleccionado una imagen válida.", "Error");
                 }
             }
         }
+
+
+
     }
 }

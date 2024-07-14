@@ -1,14 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.IO;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace LURA
 {
 
+    public class Foto
+    {
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public string Id { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
+        public string Distancia { get; set; }
+        public string NombreArchivo { get; set; }
+
+    }
 
     public class MongoDBHelper
     {
@@ -29,12 +44,27 @@ namespace LURA
             return fotosBson.Select(bson => new Foto
             {
                 Id = bson["_id"].AsObjectId.ToString(),
-                Fecha = bson["fecha"].ToUniversalTime(),
+                Fecha = bson["fecha"].ToLocalTime(),
                 Latitud = bson["latitud"].AsString,
                 Longitud = bson["longitud"].AsString,
                 Distancia = bson["distancia"].AsString,
                 NombreArchivo = bson["nombre_archivo"].AsString
             }).ToList();
+        }
+
+        public List<Foto> GetFotosPorFecha(DateTime fecha)
+        {
+            var filtro = Builders<BsonDocument>.Filter.Eq("fecha", fecha);
+            var fotosBson = _fotosCollection.Find(filtro).ToList();
+            return fotosBson.Select(bson => new Foto
+            {
+                Id = bson["_id"].AsObjectId.ToString(),
+                Fecha = bson["fecha"].ToLocalTime(),
+                Latitud = bson["latitud"].AsString,
+                Longitud = bson["longitud"].AsString,
+                Distancia = bson["distancia"].AsString,
+                NombreArchivo = bson["nombre_archivo"].AsString
+            }).OrderByDescending(f => f.Fecha).ToList();
         }
 
         //ejemplo:
@@ -54,13 +84,7 @@ namespace LURA
         }
     }
 
-    public class Foto
-    {
-        public string Id { get; set; }
-        public DateTime Fecha { get; set; }
-        public string Latitud { get; set; }
-        public string Longitud { get; set; }
-        public string Distancia { get; set; }
-        public string NombreArchivo { get; set; }
-    }
+   
+
+
 }

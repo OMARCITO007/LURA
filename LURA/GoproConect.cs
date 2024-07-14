@@ -10,9 +10,14 @@ using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.IO;
+using System.Drawing.Imaging;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace LURA
 {
+
+
     public class GoproConect
     {
         private FilterInfoCollection videoDevices;
@@ -121,6 +126,17 @@ namespace LURA
                     _mongoDBHelper = new MongoDBHelper(); //conectar a la base de datos
                     //procesar imagen
                     Bitmap bitmap = new Bitmap(gp_camera.Image);
+
+                    // Formatear el texto a agregar
+                    string[] texto = new string[]
+                    {
+                    $"Fecha: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                    $"Latitud: 19.4326",
+                    $"Longitud: -99.1332",
+                    $"Distancia: 10 km"
+                    };
+                    // Agregar texto a la imagen usando la clase EditarFoto
+                    AgregarTexto(bitmap, texto);
                     string fileName = $"captura_{DateTime.Now:yyyyMMddHHmmss}.jpg";
                     string fullPath = Path.Combine(folderPath, fileName);
                     bitmap.Save(fullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -129,6 +145,7 @@ namespace LURA
                     //mensaje de confirmacion
                     MessageBox.Show($"Imagen capturada y guardada en: {fullPath}", "Captura Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     bitmap.Dispose();
+                    
                 }
                 else
                 {
@@ -138,6 +155,37 @@ namespace LURA
             catch (Exception ex)
             {
                 MessageBox.Show("Error al capturar y guardar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AgregarTexto(Bitmap bitmap, string[] lineasDeTexto, float x = 10, float y = -1)
+        {
+            try
+            {
+                // Crear un objeto Graphics a partir del bitmap
+                using (Graphics graphics = Graphics.FromImage(bitmap))
+                {
+                    // Definir la fuente y el pincel
+                    Font font = new Font("Arial", 20, FontStyle.Bold);
+                    Brush brush = new SolidBrush(Color.White);
+
+                    // Ajustar la coordenada y para que el texto aparezca en la esquina inferior izquierda si no se proporciona
+                    if (y == -1)
+                    {
+                        y = bitmap.Height - 40 * lineasDeTexto.Length;
+                    }
+
+                    // Dibujar cada línea de texto en el bitmap
+                    foreach (string linea in lineasDeTexto)
+                    {
+                        graphics.DrawString(linea, font, brush, new PointF(x, y));
+                        y += 40; // Ajustar la posición para la siguiente línea de texto
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al agregar texto a la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
