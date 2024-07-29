@@ -29,13 +29,7 @@
         private void InitializeComponent()
         {
             this.panel4 = new System.Windows.Forms.Panel();
-            this.list_gps = new System.Windows.Forms.ComboBox();
-            this.btn_conectar_gps = new System.Windows.Forms.Button();
-            this.list_usb_encoder = new System.Windows.Forms.ComboBox();
-            this.btn_conectar_enc = new System.Windows.Forms.Button();
             this.btn_capture = new System.Windows.Forms.Button();
-            this.list_gp = new System.Windows.Forms.ComboBox();
-            this.btn_conectar_gp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -60,108 +54,25 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel4.Controls.Add(this.list_gps);
-            this.panel4.Controls.Add(this.btn_conectar_gps);
-            this.panel4.Controls.Add(this.list_usb_encoder);
-            this.panel4.Controls.Add(this.btn_conectar_enc);
             this.panel4.Controls.Add(this.btn_capture);
-            this.panel4.Controls.Add(this.list_gp);
-            this.panel4.Controls.Add(this.btn_conectar_gp);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(0, 653);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(981, 94);
             this.panel4.TabIndex = 38;
             // 
-            // list_gps
-            // 
-            this.list_gps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.list_gps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.list_gps.FormattingEnabled = true;
-            this.list_gps.Location = new System.Drawing.Point(656, 51);
-            this.list_gps.Name = "list_gps";
-            this.list_gps.Size = new System.Drawing.Size(120, 21);
-            this.list_gps.TabIndex = 12;
-            this.list_gps.Text = "USB GPS";
-            // 
-            // btn_conectar_gps
-            // 
-            this.btn_conectar_gps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(163)))), ((int)(((byte)(88)))));
-            this.btn_conectar_gps.FlatAppearance.BorderSize = 0;
-            this.btn_conectar_gps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_conectar_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_conectar_gps.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_gps.Location = new System.Drawing.Point(788, 46);
-            this.btn_conectar_gps.Name = "btn_conectar_gps";
-            this.btn_conectar_gps.Size = new System.Drawing.Size(128, 30);
-            this.btn_conectar_gps.TabIndex = 11;
-            this.btn_conectar_gps.Text = "Conectar";
-            this.btn_conectar_gps.UseVisualStyleBackColor = false;
-            this.btn_conectar_gps.Click += new System.EventHandler(this.btn_conectar_gps_Click);
-            // 
-            // list_usb_encoder
-            // 
-            this.list_usb_encoder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.list_usb_encoder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.list_usb_encoder.FormattingEnabled = true;
-            this.list_usb_encoder.Location = new System.Drawing.Point(95, 51);
-            this.list_usb_encoder.Name = "list_usb_encoder";
-            this.list_usb_encoder.Size = new System.Drawing.Size(120, 21);
-            this.list_usb_encoder.TabIndex = 10;
-            this.list_usb_encoder.Text = "USB encoder";
-            // 
-            // btn_conectar_enc
-            // 
-            this.btn_conectar_enc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(163)))), ((int)(((byte)(88)))));
-            this.btn_conectar_enc.FlatAppearance.BorderSize = 0;
-            this.btn_conectar_enc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_conectar_enc.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_conectar_enc.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_enc.Location = new System.Drawing.Point(228, 46);
-            this.btn_conectar_enc.Name = "btn_conectar_enc";
-            this.btn_conectar_enc.Size = new System.Drawing.Size(128, 30);
-            this.btn_conectar_enc.TabIndex = 9;
-            this.btn_conectar_enc.Text = "Conectar";
-            this.btn_conectar_enc.UseVisualStyleBackColor = false;
-            this.btn_conectar_enc.Click += new System.EventHandler(this.btn_conectar_enc_Click);
-            // 
             // btn_capture
             // 
             this.btn_capture.BackColor = System.Drawing.Color.Salmon;
             this.btn_capture.FlatAppearance.BorderSize = 0;
             this.btn_capture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_capture.Location = new System.Drawing.Point(513, 17);
+            this.btn_capture.Location = new System.Drawing.Point(426, 37);
             this.btn_capture.Name = "btn_capture";
             this.btn_capture.Size = new System.Drawing.Size(128, 23);
             this.btn_capture.TabIndex = 8;
             this.btn_capture.Text = "Foto";
             this.btn_capture.UseVisualStyleBackColor = false;
             this.btn_capture.Click += new System.EventHandler(this.btn_capture_Click);
-            // 
-            // list_gp
-            // 
-            this.list_gp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.list_gp.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.list_gp.FormattingEnabled = true;
-            this.list_gp.Location = new System.Drawing.Point(370, 51);
-            this.list_gp.Name = "list_gp";
-            this.list_gp.Size = new System.Drawing.Size(127, 23);
-            this.list_gp.TabIndex = 3;
-            // 
-            // btn_conectar_gp
-            // 
-            this.btn_conectar_gp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(163)))), ((int)(((byte)(88)))));
-            this.btn_conectar_gp.FlatAppearance.BorderSize = 0;
-            this.btn_conectar_gp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_conectar_gp.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_conectar_gp.ForeColor = System.Drawing.Color.White;
-            this.btn_conectar_gp.Location = new System.Drawing.Point(513, 46);
-            this.btn_conectar_gp.Name = "btn_conectar_gp";
-            this.btn_conectar_gp.Size = new System.Drawing.Size(128, 30);
-            this.btn_conectar_gp.TabIndex = 1;
-            this.btn_conectar_gp.Text = "Conectar";
-            this.btn_conectar_gp.UseVisualStyleBackColor = false;
-            this.btn_conectar_gp.Click += new System.EventHandler(this.btn_conectar_gp_Click);
             // 
             // panel1
             // 
@@ -202,7 +113,7 @@
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox5.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox5.Location = new System.Drawing.Point(567, 62);
+            this.textBox5.Location = new System.Drawing.Point(566, 62);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(230, 60);
@@ -360,13 +271,7 @@
 
         #endregion
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.ComboBox list_gps;
-        private System.Windows.Forms.Button btn_conectar_gps;
-        private System.Windows.Forms.ComboBox list_usb_encoder;
-        private System.Windows.Forms.Button btn_conectar_enc;
         private System.Windows.Forms.Button btn_capture;
-        private System.Windows.Forms.ComboBox list_gp;
-        private System.Windows.Forms.Button btn_conectar_gp;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox5;

@@ -35,6 +35,7 @@ namespace LURA
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             LoadAvailableCameras();
         }
+         
 
         private void LoadAvailableCameras()
         {
