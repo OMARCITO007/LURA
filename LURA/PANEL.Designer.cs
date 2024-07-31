@@ -45,11 +45,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             this.pantallas = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.gp_camera = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblDistanciaCorregida = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.altura_gps = new System.Windows.Forms.TextBox();
             this.iniciar_medida = new System.Windows.Forms.Button();
@@ -62,16 +62,14 @@
             this.latitud_gps = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.distancia = new System.Windows.Forms.TextBox();
-            this.lblDistanciaCorregida = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.gp_camera = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel3.SuspendLayout();
             this.pantallas.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gp_camera)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gp_camera)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -288,41 +286,15 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.nightControlBox1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(227, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1036, 41);
             this.panel3.TabIndex = 5;
             // 
-            // nightControlBox1
-            // 
-            this.nightControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nightControlBox1.BackColor = System.Drawing.Color.Transparent;
-            this.nightControlBox1.CloseHoverColor = System.Drawing.Color.Red;
-            this.nightControlBox1.CloseHoverForeColor = System.Drawing.Color.White;
-            this.nightControlBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nightControlBox1.DefaultLocation = true;
-            this.nightControlBox1.DisableMaximizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.nightControlBox1.DisableMinimizeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.nightControlBox1.EnableCloseColor = System.Drawing.Color.Black;
-            this.nightControlBox1.EnableMaximizeButton = true;
-            this.nightControlBox1.EnableMaximizeColor = System.Drawing.Color.Black;
-            this.nightControlBox1.EnableMinimizeButton = true;
-            this.nightControlBox1.EnableMinimizeColor = System.Drawing.Color.Black;
-            this.nightControlBox1.Location = new System.Drawing.Point(897, 0);
-            this.nightControlBox1.MaximizeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.nightControlBox1.MaximizeHoverForeColor = System.Drawing.Color.White;
-            this.nightControlBox1.MinimizeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.nightControlBox1.MinimizeHoverForeColor = System.Drawing.Color.White;
-            this.nightControlBox1.Name = "nightControlBox1";
-            this.nightControlBox1.Size = new System.Drawing.Size(139, 31);
-            this.nightControlBox1.TabIndex = 10;
-            // 
             // pantallas
             // 
             this.pantallas.Controls.Add(this.panel5);
-            this.pantallas.Controls.Add(this.panel4);
             this.pantallas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pantallas.Location = new System.Drawing.Point(227, 41);
             this.pantallas.Name = "pantallas";
@@ -332,26 +304,13 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.panel5.Controls.Add(this.panel4);
             this.panel5.Controls.Add(this.gp_camera);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 140);
+            this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1036, 620);
+            this.panel5.Size = new System.Drawing.Size(1036, 760);
             this.panel5.TabIndex = 41;
-            // 
-            // gp_camera
-            // 
-            this.gp_camera.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.gp_camera.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.gp_camera.ErrorImage = global::LURA.Properties.Resources.Group_245;
-            this.gp_camera.InitialImage = global::LURA.Properties.Resources.Group_245;
-            this.gp_camera.Location = new System.Drawing.Point(92, 20);
-            this.gp_camera.Name = "gp_camera";
-            this.gp_camera.Size = new System.Drawing.Size(853, 588);
-            this.gp_camera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.gp_camera.TabIndex = 38;
-            this.gp_camera.TabStop = false;
-            this.gp_camera.WaitOnLoad = true;
             // 
             // panel4
             // 
@@ -374,14 +333,39 @@
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1036, 140);
-            this.panel4.TabIndex = 40;
+            this.panel4.TabIndex = 43;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.DarkGray;
+            this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(684, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(172, 12);
+            this.label5.TabIndex = 76;
+            this.label5.Text = "Distancia recorrida en metros";
+            // 
+            // lblDistanciaCorregida
+            // 
+            this.lblDistanciaCorregida.BackColor = System.Drawing.Color.Silver;
+            this.lblDistanciaCorregida.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblDistanciaCorregida.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F);
+            this.lblDistanciaCorregida.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.lblDistanciaCorregida.Location = new System.Drawing.Point(548, 71);
+            this.lblDistanciaCorregida.Name = "lblDistanciaCorregida";
+            this.lblDistanciaCorregida.Size = new System.Drawing.Size(441, 50);
+            this.lblDistanciaCorregida.TabIndex = 75;
+            this.lblDistanciaCorregida.Text = "00000";
+            this.lblDistanciaCorregida.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(824, 23);
+            this.label6.Location = new System.Drawing.Point(403, 20);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 18);
             this.label6.TabIndex = 50;
@@ -391,7 +375,7 @@
             // 
             this.altura_gps.BackColor = System.Drawing.Color.Silver;
             this.altura_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.altura_gps.Location = new System.Drawing.Point(890, 22);
+            this.altura_gps.Location = new System.Drawing.Point(473, 18);
             this.altura_gps.Name = "altura_gps";
             this.altura_gps.Size = new System.Drawing.Size(111, 23);
             this.altura_gps.TabIndex = 49;
@@ -404,7 +388,7 @@
             this.iniciar_medida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iniciar_medida.Font = new System.Drawing.Font("Arial Rounded MT Bold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.iniciar_medida.ForeColor = System.Drawing.Color.White;
-            this.iniciar_medida.Location = new System.Drawing.Point(427, 63);
+            this.iniciar_medida.Location = new System.Drawing.Point(400, 70);
             this.iniciar_medida.Name = "iniciar_medida";
             this.iniciar_medida.Size = new System.Drawing.Size(134, 58);
             this.iniciar_medida.TabIndex = 46;
@@ -419,18 +403,19 @@
             this.zero_pulsos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.zero_pulsos.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.zero_pulsos.ForeColor = System.Drawing.Color.White;
-            this.zero_pulsos.Location = new System.Drawing.Point(697, 17);
+            this.zero_pulsos.Location = new System.Drawing.Point(295, 14);
             this.zero_pulsos.Name = "zero_pulsos";
             this.zero_pulsos.Size = new System.Drawing.Size(100, 30);
             this.zero_pulsos.TabIndex = 45;
             this.zero_pulsos.Text = "Zero";
             this.zero_pulsos.UseVisualStyleBackColor = false;
+            this.zero_pulsos.Click += new System.EventHandler(this.zero_pulsos_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(424, 23);
+            this.label4.Location = new System.Drawing.Point(31, 20);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 18);
             this.label4.TabIndex = 44;
@@ -440,7 +425,7 @@
             // 
             this.pulsos_encoder.BackColor = System.Drawing.Color.Silver;
             this.pulsos_encoder.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.pulsos_encoder.Location = new System.Drawing.Point(567, 22);
+            this.pulsos_encoder.Location = new System.Drawing.Point(176, 18);
             this.pulsos_encoder.Name = "pulsos_encoder";
             this.pulsos_encoder.Size = new System.Drawing.Size(111, 23);
             this.pulsos_encoder.TabIndex = 43;
@@ -451,7 +436,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(204, 103);
+            this.label3.Location = new System.Drawing.Point(788, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 18);
             this.label3.TabIndex = 42;
@@ -461,7 +446,7 @@
             // 
             this.longitud_gps.BackColor = System.Drawing.Color.Silver;
             this.longitud_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.longitud_gps.Location = new System.Drawing.Point(293, 102);
+            this.longitud_gps.Location = new System.Drawing.Point(879, 18);
             this.longitud_gps.Name = "longitud_gps";
             this.longitud_gps.Size = new System.Drawing.Size(111, 23);
             this.longitud_gps.TabIndex = 41;
@@ -471,7 +456,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(204, 63);
+            this.label2.Location = new System.Drawing.Point(592, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 18);
             this.label2.TabIndex = 40;
@@ -481,7 +466,7 @@
             // 
             this.latitud_gps.BackColor = System.Drawing.Color.Silver;
             this.latitud_gps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.latitud_gps.Location = new System.Drawing.Point(293, 62);
+            this.latitud_gps.Location = new System.Drawing.Point(669, 18);
             this.latitud_gps.Name = "latitud_gps";
             this.latitud_gps.Size = new System.Drawing.Size(111, 23);
             this.latitud_gps.TabIndex = 39;
@@ -491,44 +476,40 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(204, 23);
+            this.label1.Location = new System.Drawing.Point(31, 90);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 18);
+            this.label1.Size = new System.Drawing.Size(172, 18);
             this.label1.TabIndex = 38;
-            this.label1.Text = "Distancia:";
+            this.label1.Text = "Distancia en metros:";
             // 
             // distancia
             // 
-            this.distancia.BackColor = System.Drawing.Color.Silver;
-            this.distancia.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
-            this.distancia.Location = new System.Drawing.Point(293, 22);
+            this.distancia.BackColor = System.Drawing.Color.PaleGreen;
+            this.distancia.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.distancia.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F);
+            this.distancia.Location = new System.Drawing.Point(217, 74);
             this.distancia.Name = "distancia";
-            this.distancia.Size = new System.Drawing.Size(111, 23);
+            this.distancia.Size = new System.Drawing.Size(169, 50);
             this.distancia.TabIndex = 37;
+            this.distancia.Text = "0000";
             this.distancia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // lblDistanciaCorregida
+            // gp_camera
             // 
-            this.lblDistanciaCorregida.BackColor = System.Drawing.Color.Silver;
-            this.lblDistanciaCorregida.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDistanciaCorregida.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F);
-            this.lblDistanciaCorregida.Location = new System.Drawing.Point(567, 64);
-            this.lblDistanciaCorregida.Name = "lblDistanciaCorregida";
-            this.lblDistanciaCorregida.Size = new System.Drawing.Size(230, 57);
-            this.lblDistanciaCorregida.TabIndex = 75;
-            this.lblDistanciaCorregida.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Gray;
-            this.label5.Font = new System.Drawing.Font("Arial Unicode MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(607, 105);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(150, 15);
-            this.label5.TabIndex = 76;
-            this.label5.Text = "Distancia recorrida en metros";
+            this.gp_camera.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gp_camera.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.gp_camera.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gp_camera.ErrorImage = global::LURA.Properties.Resources.Group_245;
+            this.gp_camera.InitialImage = global::LURA.Properties.Resources.Group_245;
+            this.gp_camera.Location = new System.Drawing.Point(97, 160);
+            this.gp_camera.Name = "gp_camera";
+            this.gp_camera.Size = new System.Drawing.Size(853, 588);
+            this.gp_camera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.gp_camera.TabIndex = 38;
+            this.gp_camera.TabStop = false;
+            this.gp_camera.WaitOnLoad = true;
             // 
             // PANEL
             // 
@@ -548,12 +529,11 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel3.ResumeLayout(false);
             this.pantallas.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gp_camera)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gp_camera)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -567,14 +547,22 @@
         private System.Windows.Forms.Button btn_configuracion;
         private System.Windows.Forms.Button btn_datos;
         private System.Windows.Forms.Button btn_inicio;
-        private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         private System.Windows.Forms.ComboBox list_usb_encoder;
         private System.Windows.Forms.Button btn_conectar_enc;
         public System.Windows.Forms.ComboBox list_gp;
         private System.Windows.Forms.Button btn_conectar_gp;
         private System.Windows.Forms.ComboBox list_gps;
         private System.Windows.Forms.Button btn_conectar_gps;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.PictureBox gp_camera;
+        private System.Windows.Forms.Button btn_capture;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox lblDistanciaCorregida;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox altura_gps;
         private System.Windows.Forms.Button iniciar_medida;
         private System.Windows.Forms.Button zero_pulsos;
         private System.Windows.Forms.Label label4;
@@ -584,16 +572,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox latitud_gps;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox distancia;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.PictureBox gp_camera;
-        private System.Windows.Forms.Button btn_capture;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox altura_gps;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox lblDistanciaCorregida;
+        public System.Windows.Forms.TextBox distancia; //publico para guardar la distancia en metro en la foto
     }
 }
 

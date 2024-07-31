@@ -1,16 +1,24 @@
 ﻿using System;
 
-
 namespace LURA
 {
     public class GPSProcessor
     {
+        private static readonly Lazy<GPSProcessor> _instance = new Lazy<GPSProcessor>(() => new GPSProcessor());
+
+        // Propiedad para obtener la instancia única
+        public static GPSProcessor Instance => _instance.Value;
+
+        // Propiedades para los datos del GPS
         public double Latitude { get; private set; }
         public double Longitude { get; private set; }
         public double Altitude { get; private set; }
 
         // Evento para notificar cuando los datos cambian
         public event EventHandler<DataReceivedEventArgs> DataReceived;
+
+        // Constructor privado para evitar la creación de instancias externas
+        private GPSProcessor() { }
 
         public void ProcessNMEAData(string data)
         {
@@ -56,6 +64,7 @@ namespace LURA
             return decimalDegrees;
         }
     }
+
     public class DataReceivedEventArgs : EventArgs
     {
         public double Latitude { get; }
@@ -69,5 +78,4 @@ namespace LURA
             Altitude = altitude;
         }
     }
-
 }

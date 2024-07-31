@@ -13,6 +13,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LURA
 {
@@ -120,44 +121,62 @@ namespace LURA
 
         public void CaptureImage()
         {
-            try
+            if (gp_camera.Image == null)
             {
-                if (gp_camera.Image != null)
-                {
-                    _mongoDBHelper = new MongoDBHelper(); //conectar a la base de datos
-                    //procesar imagen
-                    Bitmap bitmap = new Bitmap(gp_camera.Image);
+                MessageBox.Show("No hay imagen para capturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                    // Formatear el texto a agregar
-                    string[] texto = new string[]
-                    {
-                    $"Fecha: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
-                    $"Latitud: 19.4326",
-                    $"Longitud: -99.1332",
-                    $"Distancia: 10 km"
-                    };
-                    // Agregar texto a la imagen usando la clase EditarFoto
-                    AgregarTexto(bitmap, texto);
+            Task.Run(() =>
+            {
+                try
+                {
+                    // Procesar imagen
+                    _mongoDBHelper = new MongoDBHelper(); //conectar a la base de datos
+                    string latitud = GPSProcessor.Instance.Latitude.ToString("F6");
+                    string longitud = GPSProcessor.Instance.Longitude.ToString("F6");
+                    string distancia = PANEL.Instance.distancia.Text + " Metros";
+                    string altitud = GPSProcessor.Instance.Altitude.ToString("F2") + " Metros";
+
+                    Bitmap bitmap = new Bitmap(gp_camera.Image);
                     string fileName = $"captura_{DateTime.Now:yyyyMMddHHmmss}.jpg";
                     string fullPath = Path.Combine(folderPath, fileName);
+                     
+                    string[] texto = new string[]
+                    {
+                $"Fecha: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                $"Latitud: {latitud}",
+                $"Longitud: {longitud}",
+                $"Distancia: {distancia}",
+                $"Altitud: {altitud}"
+                    };
+
+                    // Agregar texto a la imagen usando la clase EditarFoto
+                    AgregarTexto(bitmap, texto);
+
+                    // Verificar que la carpeta de destino exista
+                    Directory.CreateDirectory(folderPath);
+
+                    // Guardar imagen
                     bitmap.Save(fullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    //guardar datos en base de datos
-                    _mongoDBHelper.InsertDocument(DateTime.UtcNow, "19.4326", "-99.1332", "10 km", fileName);
-                    //mensaje de confirmacion
-                    MessageBox.Show($"Imagen capturada y guardada en: {fullPath}", "Captura Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     bitmap.Dispose();
-                    
+
+                    // Llamada a la base de datos y mensaje de confirmación en el hilo de UI
+
+                    _mongoDBHelper.InsertDocument(DateTime.UtcNow, latitud, longitud, altitud, fileName);
+                    MessageBox.Show($"Imagen capturada y guardada en: {fullPath}", "Captura Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No hay imagen para capturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Mostrar error en el hilo de UI
+                        MessageBox.Show("Error al capturar y guardar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al capturar y guardar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            });
         }
+
+
+
+
 
         private void AgregarTexto(Bitmap bitmap, string[] lineasDeTexto, float x = 10, float y = -1)
         {

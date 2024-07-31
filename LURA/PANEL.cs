@@ -1,64 +1,68 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
+using System.Media;
 
 namespace LURA
 {
     public partial class PANEL : Form
     {
-        private UsbComManager usbComManager;
-        //private CierreVentanaDetector _cierreVentanaDetector;//detectar cierre de ventana para detener procesos
+        private static PANEL _instance;
+
+        // Propiedad para obtener la instancia única
+        public static PANEL Instance
+        {
+            get
+            {
+                if (_instance == null || _instance.IsDisposed)
+                {
+                    _instance = new PANEL();
+                }
+                return _instance;
+            }
+        }
+
         private GoproConect goproConect;
         private Control[] initialControls;
-        private GPSProcessor gpsProcessor; // Instancia de la clase GPS
-        private ConfigManager configManager;
+        //private ConfigManager configManager;
+        private Timer Tiempo;
 
-        public PANEL()
+        // Constructor privado para evitar la creación de instancias externas
+        private PANEL()
         {
-
             InitializeComponent();
-            gpsProcessor = new GPSProcessor();
-            //pantallas.Controls.Add(inicio);
             goproConect = new GoproConect(gp_camera, list_gp);
-            usbComManager = new UsbComManager(list_gps, btn_conectar_gps, list_usb_encoder, btn_conectar_enc);
-            //usbComManager = new UsbComManager(list_gps, btn_conectar_gps, list_usb_encoder, btn_conectar_enc, latitud_gps, longitud_gps, altura_gps);
-            usbComManager.GPSDataReceived += OnGPSDataReceived;
-            //usbComManager.ENCDataReceived += OnENCDataReceived;
+            UsbComManager.Instance.Initialize(list_gps, btn_conectar_gps, list_usb_encoder, btn_conectar_enc);
+            UsbComManager.Instance.GPSDataReceived += OnGPSDataReceived;
             Odometro.Instance.DataReceived += Odometro_DataReceived;
 
             this.Load += new EventHandler(Form_Load);
-            //iniciar_medida.Enabled = false;
-            //zero_pulsos.Enabled = false;
+            iniciar_medida.Enabled = false;
+            zero_pulsos.Enabled = false;
+            btn_capture.Enabled = false;
 
-            configManager = ConfigManager.Instance;
-
-
-
+            InitializeTimer();
         }
 
-
+        private void InitializeTimer()
+        {
+            Tiempo = new Timer();
+            Tiempo.Interval = 100; // Intervalo de 100 ms (0.1 segundo)
+            Tiempo.Tick += new EventHandler(Tiempo_Tick);
+        }
 
         private void Form_Load(object sender, EventArgs e)
         {
-            // Almacena los controles actuales del panel ventanas
             initialControls = new Control[pantallas.Controls.Count];
             pantallas.Controls.CopyTo(initialControls, 0);
         }
 
-        private void ControlUss (UserControl userControl) 
+        private void ControlUss(UserControl userControl)
         {
             pantallas.Controls.Clear();
-            userControl.Dock = DockStyle.Fill; 
+            userControl.Dock = DockStyle.Fill;
             pantallas.Controls.Add(userControl);
         }
 
@@ -66,7 +70,6 @@ namespace LURA
         {
             pantallas.Controls.Clear();
             pantallas.Controls.AddRange(initialControls);
-
         }
 
         private void btn_datos_Click(object sender, EventArgs e)
@@ -78,39 +81,63 @@ namespace LURA
         {
             ControlUss(new Configuracion());
         }
+
         private void PANEL_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Aquí puedes realizar las acciones que deseas antes de que el formulario se cierre
             DialogResult result = MessageBox.Show("¿Seguro que quieres cerrar la aplicación?", "Confirmar cierre", MessageBoxButtons.YesNo);
             if (result == DialogResult.No)
             {
-                // Cancela el cierre si el usuario elige No
                 e.Cancel = true;
             }
-            else
-            {
-            }
-
         }
 
         private void btn_conectar_enc_Click(object sender, EventArgs e)
         {
-            usbComManager.ToggleEncoderConnection();
+            UsbComManager.Instance.ToggleEncoderConnection();
+            if (btn_conectar_enc.Text == "Desconectar")
+            {
+                iniciar_medida.Enabled = true;
+                zero_pulsos.Enabled = true;
+                btn_conectar_enc.BackColor = Color.Tomato;
+            }
+            else
+            {
+                iniciar_medida.Enabled = false;
+                zero_pulsos.Enabled = false;
+                btn_conectar_enc.BackColor = Color.FromArgb(0, 163, 88);
+            }
         }
 
         private void btn_conectar_gps_Click(object sender, EventArgs e)
         {
-            usbComManager.ToggleGPSConnection();
+            UsbComManager.Instance.ToggleGPSConnection();
+            if (btn_conectar_gps.Text == "Desconectar")
+            {
+                btn_conectar_gps.BackColor = Color.Tomato;
+            }
+            else
+            {
+                btn_conectar_gps.BackColor = Color.FromArgb(0, 163, 88);
+            }
         }
 
         private void btn_conectar_gp_Click(object sender, EventArgs e)
         {
             goproConect.ConnectCamera(btn_conectar_gp);
+            if (btn_conectar_gp.Text == "Desconectar")
+            {
+                btn_conectar_gp.BackColor = Color.Tomato;
+                btn_capture.Enabled = true;
+            }
+            else
+            {
+                btn_conectar_gp.BackColor = Color.FromArgb(0, 163, 88);
+                btn_capture.Enabled = false;
+            }
         }
 
         private void OnGPSDataReceived(object sender, GPSDataReceivedEventArgs e)
         {
-            // Actualizar los controles del formulario con los datos GPS
             Invoke(new Action(() =>
             {
                 latitud_gps.Text = e.Latitude.ToString("F6");
@@ -119,31 +146,28 @@ namespace LURA
             }));
         }
 
-
-         private void OnENCDataReceived(object sender, EncUpdEncoderEventArgs e)
+        private void OnENCDataReceived(object sender, EncUpdEncoderEventArgs e)
         {
-            //  Actualizar la interfaz de usuario con la distancia corregida y los pulsos contados
             Invoke(new Action(() =>
             {
-                lblDistanciaCorregida.Text = e.DistanciaTotalCorregida.ToString("F2");
+                lblDistanciaCorregida.Text = e.DistanciaTotalCorregida.ToString("F3");
                 pulsos_encoder.Text = e.PulsosContados.ToString("F0");
             }));
         }
 
         private void Odometro_DataReceived(object sender, UpdateEncoderEventArgs e)
         {
-            // Actualiza los TextBox en el UserControl
             if (InvokeRequired)
             {
                 Invoke(new Action(() =>
                 {
-                    lblDistanciaCorregida.Text = e.DistanciaTotalCorregida.ToString();
+                    lblDistanciaCorregida.Text = e.DistanciaTotalCorregida.ToString("F3");
                     pulsos_encoder.Text = e.PulsosContados.ToString();
                 }));
             }
             else
             {
-                lblDistanciaCorregida.Text = e.DistanciaTotalCorregida.ToString();
+                lblDistanciaCorregida.Text = e.DistanciaTotalCorregida.ToString("F3");
                 pulsos_encoder.Text = e.PulsosContados.ToString();
             }
         }
@@ -153,11 +177,40 @@ namespace LURA
             goproConect.CaptureImage();
         }
 
+        private void zero_pulsos_Click(object sender, EventArgs e)
+        {
+            UsbComManager.Instance.SendCommand("ZERO");
+        }
+
         private void iniciar_medida_Click(object sender, EventArgs e)
         {
-            string datos = "Pulsos: 123456"; // Ejemplo de datos
-            Odometro.Instance.CalcularDistanciaCorregida(datos);
+            if (Tiempo.Enabled)
+            {
+                Tiempo.Stop();
+                iniciar_medida.Text = "INICIAR";
+                iniciar_medida.BackColor = Color.FromArgb(0, 163, 88);
+            }
+            else
+            {
+                Tiempo.Start();
+                iniciar_medida.Text = "PARAR";
+                iniciar_medida.BackColor = Color.Tomato;
+            }
         }
+
+        private void Tiempo_Tick(object sender, EventArgs e) //Timer de captura de imagen por distancia
+        {
+            if (double.TryParse(lblDistanciaCorregida.Text, out double distanciaCorregida) &&
+                double.TryParse(distancia.Text, out double distanciaIngresada))
+            {
+                if (distanciaCorregida >= distanciaIngresada)
+                {
+                    UsbComManager.Instance.SendCommand("ZERO");
+                    SystemSounds.Beep.Play();
+                }
+            }
+        }
+
+
     }
 }
-

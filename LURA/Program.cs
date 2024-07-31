@@ -16,7 +16,8 @@ namespace LURA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PANEL());
+            //Application.Run(new PANEL());
+            Application.Run(PANEL.Instance);
         }
     }
  

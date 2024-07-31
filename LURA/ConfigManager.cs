@@ -13,6 +13,7 @@ namespace LURA
 
         public double PPR { get; set; }
         public double DiametroRueda { get; set; }
+        public double DiametroRuedaMetros { get; set; }
         public double FactorEscala { get; set; }
         public double CircunferenciaRueda { get; private set; }
         public double DistanciaPorPulso { get; private set; }
@@ -51,7 +52,8 @@ namespace LURA
                     DiametroRueda = double.Parse(data["Settings"]["Diametro_rueda"]);
                     FactorEscala = double.Parse(data["Settings"]["Factor_escala"]);
 
-                    CircunferenciaRueda = Math.PI * DiametroRueda;
+                    DiametroRuedaMetros = DiametroRueda / 100;
+                    CircunferenciaRueda = Math.PI * DiametroRuedaMetros;
                     DistanciaPorPulso = CircunferenciaRueda / PPR;
                 }
                 catch (Exception ex)
@@ -74,7 +76,8 @@ namespace LURA
             PPR = 2000.0;
             DiametroRueda = 65.39; // Rueda 255/55 R16
             FactorEscala = 1.0;
-            CircunferenciaRueda = Math.PI * DiametroRueda;
+            DiametroRuedaMetros = DiametroRueda / 100;
+            CircunferenciaRueda = Math.PI * DiametroRuedaMetros;
             DistanciaPorPulso = CircunferenciaRueda / PPR;
         }
 
@@ -125,7 +128,7 @@ namespace LURA
                     DistanciaTotal = pulsosContados * configManager.DistanciaPorPulso;
                     DistanciaTotalCorregida = DistanciaTotal * configManager.FactorEscala;
                     // Notificar que se recibieron nuevos datos
-                    DataReceived?.Invoke(this, new UpdateEncoderEventArgs(DistanciaTotalCorregida, pulsosContados));
+                    DataReceived?.Invoke(this, new UpdateEncoderEventArgs(DistanciaTotalCorregida, pulsosContados, DistanciaTotal));
                 }
             }
         }
@@ -135,11 +138,13 @@ namespace LURA
     {
         public double DistanciaTotalCorregida { get; private set; }
         public double PulsosContados { get; private set; }
+        public double DistanciaTotal { get; private set; }
 
-        public UpdateEncoderEventArgs(double medida, double pulsos)
+        public UpdateEncoderEventArgs(double medida, double pulsos, double distanciaTotal)
         {
             DistanciaTotalCorregida = medida;
             PulsosContados = pulsos;
+            DistanciaTotal = distanciaTotal;
         }
     }
 }

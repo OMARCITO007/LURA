@@ -31,6 +31,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.distancia_total = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.DistanciaCorregida = new System.Windows.Forms.TextBox();
             this.save_conf = new System.Windows.Forms.Button();
@@ -41,8 +43,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.distancia_real = new System.Windows.Forms.TextBox();
             this.calibración = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.pulsos_medidos = new System.Windows.Forms.TextBox();
             this.zero = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pulsos_encoder = new System.Windows.Forms.TextBox();
@@ -77,6 +77,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.distancia_total);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.DistanciaCorregida);
             this.panel2.Controls.Add(this.save_conf);
@@ -87,8 +89,6 @@
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.distancia_real);
             this.panel2.Controls.Add(this.calibración);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.pulsos_medidos);
             this.panel2.Controls.Add(this.zero);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.pulsos_encoder);
@@ -102,22 +102,43 @@
             this.panel2.Size = new System.Drawing.Size(1139, 414);
             this.panel2.TabIndex = 43;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(615, 106);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 18);
+            this.label10.TabIndex = 77;
+            this.label10.Text = "Distancia:";
+            // 
+            // distancia_total
+            // 
+            this.distancia_total.BackColor = System.Drawing.Color.Silver;
+            this.distancia_total.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.distancia_total.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.distancia_total.Location = new System.Drawing.Point(709, 104);
+            this.distancia_total.Name = "distancia_total";
+            this.distancia_total.Size = new System.Drawing.Size(111, 23);
+            this.distancia_total.TabIndex = 76;
+            this.distancia_total.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(536, 107);
+            this.label9.Location = new System.Drawing.Point(533, 151);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(167, 18);
+            this.label9.Size = new System.Drawing.Size(170, 18);
             this.label9.TabIndex = 75;
-            this.label9.Text = "Distancia recorrida:";
+            this.label9.Text = "Distancia corregida:";
             // 
             // DistanciaCorregida
             // 
             this.DistanciaCorregida.BackColor = System.Drawing.Color.Silver;
             this.DistanciaCorregida.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DistanciaCorregida.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DistanciaCorregida.Location = new System.Drawing.Point(709, 105);
+            this.DistanciaCorregida.Location = new System.Drawing.Point(709, 151);
             this.DistanciaCorregida.Name = "DistanciaCorregida";
             this.DistanciaCorregida.Size = new System.Drawing.Size(111, 23);
             this.DistanciaCorregida.TabIndex = 74;
@@ -164,7 +185,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(580, 299);
+            this.label6.Location = new System.Drawing.Point(580, 296);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(123, 18);
             this.label6.TabIndex = 70;
@@ -183,19 +204,21 @@
             this.calibrar.TabIndex = 66;
             this.calibrar.Text = "Calibrar";
             this.calibrar.UseVisualStyleBackColor = false;
+            this.calibrar.Click += new System.EventHandler(this.calibrar_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(580, 201);
+            this.label5.Location = new System.Drawing.Point(496, 201);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(123, 18);
+            this.label5.Size = new System.Drawing.Size(207, 18);
             this.label5.TabIndex = 65;
-            this.label5.Text = "Distancia real:";
+            this.label5.Text = "Distancia real en metros:";
             // 
             // distancia_real
             // 
+            this.distancia_real.BackColor = System.Drawing.Color.PapayaWhip;
             this.distancia_real.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.distancia_real.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.distancia_real.Location = new System.Drawing.Point(709, 199);
@@ -206,6 +229,7 @@
             // 
             // calibración
             // 
+            this.calibración.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.calibración.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.calibración.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F);
             this.calibración.Location = new System.Drawing.Point(709, 294);
@@ -213,26 +237,6 @@
             this.calibración.Size = new System.Drawing.Size(111, 23);
             this.calibración.TabIndex = 63;
             this.calibración.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(566, 152);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(137, 18);
-            this.label7.TabIndex = 62;
-            this.label7.Text = "Pulsos medidos:";
-            // 
-            // pulsos_medidos
-            // 
-            this.pulsos_medidos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pulsos_medidos.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pulsos_medidos.Location = new System.Drawing.Point(709, 150);
-            this.pulsos_medidos.Name = "pulsos_medidos";
-            this.pulsos_medidos.Size = new System.Drawing.Size(111, 23);
-            this.pulsos_medidos.TabIndex = 61;
-            this.pulsos_medidos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // zero
             // 
@@ -247,6 +251,7 @@
             this.zero.TabIndex = 53;
             this.zero.Text = "Zero";
             this.zero.UseVisualStyleBackColor = false;
+            this.zero.Click += new System.EventHandler(this.zero_Click);
             // 
             // label3
             // 
@@ -345,13 +350,13 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox distancia_real;
         private System.Windows.Forms.TextBox calibración;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox pulsos_medidos;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button save_conf;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox factor_escala;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox DistanciaCorregida;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox distancia_total;
     }
 }

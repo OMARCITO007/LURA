@@ -2,12 +2,16 @@
 using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
+using System.Net.Sockets;
+using System.Text;
 using System.Windows.Forms;
 
 namespace LURA
 {
     public class UsbComManager
     {
+        private static UsbComManager instance; //x2
+
         private SerialPort serialPortGPS;
         private SerialPort serialPortEncoder;
         private Timer portCheckTimer;
@@ -15,19 +19,35 @@ namespace LURA
         private ComboBox list_usb_encoder;
         private Button btn_conectar_gps;
         private Button btn_conectar_enc;
-        private GPSProcessor gpsProcessor;
+        //private GPSProcessor gpsProcessor;
 
         public event EventHandler<GPSDataReceivedEventArgs> GPSDataReceived;
         public event EventHandler<EncUpdEncoderEventArgs> ENCDataReceived;
 
-        public UsbComManager(ComboBox comboBoxGPS, Button connectButtonGPS, ComboBox comboBoxEncoder, Button connectButtonEncoder)
+        private UsbComManager() { }
+
+        // Public static method to get the single instance
+        //x2 Convertir UsbComManager en un Singleton para que este disponible para usarlo en cualquier usercontrol y form
+        public static UsbComManager Instance //x2
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new UsbComManager();
+                }
+                return instance;
+            }
+        }
+        //public UsbComManager(ComboBox comboBoxGPS, Button connectButtonGPS, ComboBox comboBoxEncoder, Button connectButtonEncoder)
+        public void Initialize(ComboBox comboBoxGPS, Button connectButtonGPS, ComboBox comboBoxEncoder, Button connectButtonEncoder)
         {
             list_gps = comboBoxGPS;
             btn_conectar_gps = connectButtonGPS;
             list_usb_encoder = comboBoxEncoder;
             btn_conectar_enc = connectButtonEncoder;
 
-            gpsProcessor = new GPSProcessor(); // Initialize the GPSProcessor instance
+            //gpsProcessor = new GPSProcessor(); // Initialize the GPSProcessor instance
 
             LoadAvailablePorts();
 
@@ -158,6 +178,25 @@ namespace LURA
             }
         }
 
+        public void SendCommand(string command)
+        {
+            if (serialPortEncoder != null && serialPortEncoder.IsOpen)
+            {
+                try
+                {
+                    serialPortEncoder.WriteLine(command);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al enviar comando: {ex.Message}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No está conectado a ningún puerto COM o servidor TCP.");
+            }
+        }
+
         private void DisconnectGPS()
         {
             if (serialPortGPS != null && serialPortGPS.IsOpen)
@@ -187,8 +226,8 @@ namespace LURA
             try
             {
                 string data = serialPortGPS.ReadLine();
-                gpsProcessor.ProcessNMEAData(data);
-                OnGPSDataReceived(gpsProcessor.Latitude, gpsProcessor.Longitude, gpsProcessor.Altitude);
+                GPSProcessor.Instance.ProcessNMEAData(data);
+                OnGPSDataReceived(GPSProcessor.Instance.Latitude, GPSProcessor.Instance.Longitude, GPSProcessor.Instance.Altitude);
             }
             catch
             {
@@ -203,7 +242,7 @@ namespace LURA
             {
                 string data = serialPortEncoder.ReadExisting();
                 Odometro.Instance.CalcularDistanciaCorregida(data);
-                OnENCDataReceived(Odometro.Instance.DistanciaTotalCorregida, Odometro.Instance.PulsosContados);
+                OnENCDataReceived(Odometro.Instance.DistanciaTotalCorregida, Odometro.Instance.PulsosContados, Odometro.Instance.DistanciaTotal);
 
             }
             catch
@@ -219,9 +258,9 @@ namespace LURA
             GPSDataReceived?.Invoke(this, new GPSDataReceivedEventArgs(latitude, longitude, altitude));
         }
 
-        protected virtual void OnENCDataReceived(double medida, double pulsos)
+        protected virtual void OnENCDataReceived(double medida, double pulsos, double distanciaTotal)
         {
-            ENCDataReceived?.Invoke(this, new EncUpdEncoderEventArgs(medida, pulsos));
+            ENCDataReceived?.Invoke(this, new EncUpdEncoderEventArgs(medida, pulsos, distanciaTotal));
         }
     }
 
@@ -243,11 +282,13 @@ namespace LURA
     {
         public double DistanciaTotalCorregida { get; private set; }
         public double PulsosContados { get; private set; }
+        public double DistanciaTotal { get; private set; }
 
-        public EncUpdEncoderEventArgs(double medida, double pulsos)
+        public EncUpdEncoderEventArgs(double medida, double pulsos, double distanciaTotal)
         {
             DistanciaTotalCorregida = medida;
             PulsosContados = pulsos;
+            DistanciaTotal = distanciaTotal;
         }
     }
 }
