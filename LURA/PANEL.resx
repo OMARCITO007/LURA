@@ -248,6 +248,22 @@
         AThcAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="min_btn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAICAYAAADuv08kAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAACBJREFUOE9jUFdX/z8QeNRiuuFRi+mGGdTU1Orpj9XqAcroTXaCTsB3AAAAAElF
+        TkSuQmCC
+</value>
+  </data>
+  <data name="close_btn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAALFJREFUSEvN10sOgCAMBFBPA9xab6qpcRJ/xVKmwUm6IswzDRunnPOKSSnNU1BK
+        KcvZusAyEfgdlXnAMkz8DZVRDxj4Z3cEbu5k4s1dDNzd0YN3f7ingLGtPS1FNBSxFNJRpFYchiIa8DY0
+        FLHgdBSp4WGoZAg8ZNVDHpeGClA7O677Yimm4y2FNNxT1I33FLjvMlbW3MFAEXMXE0U+OyNQpNqtHpCi
+        4f/4hYlAkSue1w3fzfjQwDDEwgAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAMAEBAAAAEAIABoBAAANgAAACAgAAABACAAKBEAAJ4EAAAwMAAAAQAgAGgmAADGFQAAKAAAABAA

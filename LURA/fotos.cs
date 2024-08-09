@@ -22,7 +22,7 @@ namespace LURA
         public DateTime Fecha { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
-        public string Altura { get; set; }
+        public string Distancia_total { get; set; }
         public string NombreArchivo { get; set; }
 
     }
@@ -67,7 +67,7 @@ namespace LURA
                     Fecha = bson["fecha"].ToLocalTime(),
                     Latitud = bson["latitud"].AsString,
                     Longitud = bson["longitud"].AsString,
-                    Altura = bson["distancia"].AsString,
+                    Distancia_total = bson["distancia"].AsString,
                     NombreArchivo = bson["nombre_archivo"].AsString
                 }).ToList();
             }
@@ -91,7 +91,7 @@ namespace LURA
                 Fecha = bson["fecha"].ToLocalTime(),
                 Latitud = bson["latitud"].AsString,
                 Longitud = bson["longitud"].AsString,
-                Altura = bson["distancia"].AsString,
+                Distancia_total = bson["distancia"].AsString,
                 NombreArchivo = bson["nombre_archivo"].AsString
             }).OrderByDescending(f => f.Fecha).ToList();
         }

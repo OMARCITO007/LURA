@@ -4,12 +4,27 @@ using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.Media;
+using System.Runtime.InteropServices;
+using Amazon.Auth.AccessControlPolicy;
+
 
 namespace LURA
 {
     public partial class PANEL : Form
     {
         private static PANEL _instance;
+
+        // Declaraciones de la API de Windows
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HTCAPTION = 0x2;
+
+        private const int DefaultPort = 3921;
+
+        [DllImport("User32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("User32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         // Propiedad para obtener la instancia única
         public static PANEL Instance
@@ -44,13 +59,25 @@ namespace LURA
             btn_capture.Enabled = false;
 
             InitializeTimer();
+            // Configurar eventos de mouse para el panel
+            panel1.MouseDown += Panel1_MouseDown;
+            panel3.MouseDown += Panel1_MouseDown;
         }
 
         private void InitializeTimer()
         {
             Tiempo = new Timer();
-            Tiempo.Interval = 100; // Intervalo de 100 ms (0.1 segundo)
+            Tiempo.Interval = 50; // Intervalo de 100 ms (0.1 segundo)
             Tiempo.Tick += new EventHandler(Tiempo_Tick);
+        }
+
+        private void Panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+            }
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -174,6 +201,15 @@ namespace LURA
 
         private void btn_capture_Click(object sender, EventArgs e)
         {
+            if (double.TryParse(dist_total.Text, out double distancia_total) &&
+                double.TryParse(distancia.Text, out double distanciaIngresada))
+            {
+                // Sumar la distancia ingresada a la distancia total
+                distancia_total += distanciaIngresada;
+
+                // Actualizar el texto del TextBox con el nuevo valor
+                dist_total.Text = distancia_total.ToString();
+            }
             goproConect.CaptureImage();
         }
 
@@ -203,12 +239,42 @@ namespace LURA
             if (double.TryParse(lblDistanciaCorregida.Text, out double distanciaCorregida) &&
                 double.TryParse(distancia.Text, out double distanciaIngresada))
             {
-                if (distanciaCorregida >= distanciaIngresada)
+                if (distanciaCorregida == distanciaIngresada)
                 {
+                    if (double.TryParse(dist_total.Text, out double distancia_total))
+                    {
+                        // Sumar la distancia ingresada a la distancia total
+                        distancia_total += distanciaIngresada;
+
+                        // Actualizar el texto del TextBox con el nuevo valor
+                        dist_total.Text = distancia_total.ToString();
+                    }
+                    // Enviar comando "ZERO" a través de UsbComManager
                     UsbComManager.Instance.SendCommand("ZERO");
+
+                    // Reproducir un sonido beep
                     SystemSounds.Beep.Play();
+
+                    // Capturar imagen usando la GoPro conectada
+                    goproConect.CaptureImage();
                 }
             }
+        }
+
+        private void min_btn_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void close_btn_Click(object sender, EventArgs e)
+        {
+            OnFormClosing(null);
+            Application.Exit();
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            goproConect.DetenerCaptura();
         }
 
 

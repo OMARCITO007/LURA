@@ -45,9 +45,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.min_btn = new System.Windows.Forms.PictureBox();
+            this.close_btn = new System.Windows.Forms.PictureBox();
             this.pantallas = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dist_total = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lblDistanciaCorregida = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -66,6 +70,9 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.min_btn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.close_btn)).BeginInit();
             this.pantallas.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -91,7 +98,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 801);
+            this.panel1.Size = new System.Drawing.Size(227, 824);
             this.panel1.TabIndex = 1;
             // 
             // label8
@@ -124,6 +131,7 @@
             this.btn_capture.FlatAppearance.BorderSize = 0;
             this.btn_capture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_capture.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F);
+            this.btn_capture.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btn_capture.Location = new System.Drawing.Point(57, 740);
             this.btn_capture.Name = "btn_capture";
             this.btn_capture.Size = new System.Drawing.Size(128, 30);
@@ -286,11 +294,39 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.min_btn);
+            this.panel3.Controls.Add(this.close_btn);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(227, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1036, 41);
             this.panel3.TabIndex = 5;
+            // 
+            // min_btn
+            // 
+            this.min_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.min_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.min_btn.Image = ((System.Drawing.Image)(resources.GetObject("min_btn.Image")));
+            this.min_btn.Location = new System.Drawing.Point(940, 5);
+            this.min_btn.Name = "min_btn";
+            this.min_btn.Size = new System.Drawing.Size(30, 30);
+            this.min_btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.min_btn.TabIndex = 3;
+            this.min_btn.TabStop = false;
+            this.min_btn.Click += new System.EventHandler(this.min_btn_Click);
+            // 
+            // close_btn
+            // 
+            this.close_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.close_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.close_btn.Image = ((System.Drawing.Image)(resources.GetObject("close_btn.Image")));
+            this.close_btn.Location = new System.Drawing.Point(994, 5);
+            this.close_btn.Name = "close_btn";
+            this.close_btn.Size = new System.Drawing.Size(30, 30);
+            this.close_btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.close_btn.TabIndex = 1;
+            this.close_btn.TabStop = false;
+            this.close_btn.Click += new System.EventHandler(this.close_btn_Click);
             // 
             // pantallas
             // 
@@ -298,7 +334,7 @@
             this.pantallas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pantallas.Location = new System.Drawing.Point(227, 41);
             this.pantallas.Name = "pantallas";
-            this.pantallas.Size = new System.Drawing.Size(1036, 760);
+            this.pantallas.Size = new System.Drawing.Size(1036, 783);
             this.pantallas.TabIndex = 7;
             // 
             // panel5
@@ -309,12 +345,14 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1036, 760);
+            this.panel5.Size = new System.Drawing.Size(1036, 783);
             this.panel5.TabIndex = 41;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel4.Controls.Add(this.label9);
+            this.panel4.Controls.Add(this.dist_total);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.lblDistanciaCorregida);
             this.panel4.Controls.Add(this.label6);
@@ -335,13 +373,38 @@
             this.panel4.Size = new System.Drawing.Size(1036, 140);
             this.panel4.TabIndex = 43;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.DarkGray;
+            this.label9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(755, 55);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(144, 12);
+            this.label9.TabIndex = 78;
+            this.label9.Text = "Distancia total recorrida ";
+            // 
+            // dist_total
+            // 
+            this.dist_total.BackColor = System.Drawing.Color.DodgerBlue;
+            this.dist_total.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dist_total.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F);
+            this.dist_total.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.dist_total.Location = new System.Drawing.Point(742, 74);
+            this.dist_total.Name = "dist_total";
+            this.dist_total.Size = new System.Drawing.Size(170, 50);
+            this.dist_total.TabIndex = 77;
+            this.dist_total.Text = "000000";
+            this.dist_total.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.DarkGray;
             this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(684, 52);
+            this.label5.Location = new System.Drawing.Point(547, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(172, 12);
             this.label5.TabIndex = 76;
@@ -353,11 +416,11 @@
             this.lblDistanciaCorregida.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lblDistanciaCorregida.Font = new System.Drawing.Font("Arial Rounded MT Bold", 32.25F);
             this.lblDistanciaCorregida.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.lblDistanciaCorregida.Location = new System.Drawing.Point(548, 71);
+            this.lblDistanciaCorregida.Location = new System.Drawing.Point(549, 74);
             this.lblDistanciaCorregida.Name = "lblDistanciaCorregida";
-            this.lblDistanciaCorregida.Size = new System.Drawing.Size(441, 50);
+            this.lblDistanciaCorregida.Size = new System.Drawing.Size(170, 50);
             this.lblDistanciaCorregida.TabIndex = 75;
-            this.lblDistanciaCorregida.Text = "00000";
+            this.lblDistanciaCorregida.Text = "000000";
             this.lblDistanciaCorregida.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
@@ -496,16 +559,14 @@
             // 
             // gp_camera
             // 
-            this.gp_camera.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.gp_camera.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.gp_camera.BackgroundImage = global::LURA.Properties.Resources.Group_245;
             this.gp_camera.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gp_camera.ErrorImage = global::LURA.Properties.Resources.Group_245;
             this.gp_camera.InitialImage = global::LURA.Properties.Resources.Group_245;
-            this.gp_camera.Location = new System.Drawing.Point(97, 160);
+            this.gp_camera.Location = new System.Drawing.Point(70, 160);
             this.gp_camera.Name = "gp_camera";
-            this.gp_camera.Size = new System.Drawing.Size(853, 588);
+            this.gp_camera.Size = new System.Drawing.Size(900, 600);
             this.gp_camera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.gp_camera.TabIndex = 38;
             this.gp_camera.TabStop = false;
@@ -515,20 +576,24 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1263, 801);
+            this.ClientSize = new System.Drawing.Size(1263, 824);
             this.Controls.Add(this.pantallas);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "PANEL";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LURA";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.min_btn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.close_btn)).EndInit();
             this.pantallas.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -573,6 +638,10 @@
         private System.Windows.Forms.TextBox latitud_gps;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox distancia; //publico para guardar la distancia en metro en la foto
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.TextBox dist_total;
+        private System.Windows.Forms.PictureBox close_btn;
+        private System.Windows.Forms.PictureBox min_btn;
     }
 }
 

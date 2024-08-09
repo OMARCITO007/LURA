@@ -86,6 +86,7 @@ namespace LURA
                 DetenerCaptura();
                 btn_conectar_gp.Text = "Conectar";
                 list_gp.Enabled = true;
+                gp_camera.Image = LURA.Properties.Resources.Group_245; ;
             }
         }
 
@@ -135,25 +136,26 @@ namespace LURA
                     _mongoDBHelper = new MongoDBHelper(); //conectar a la base de datos
                     string latitud = GPSProcessor.Instance.Latitude.ToString("F6");
                     string longitud = GPSProcessor.Instance.Longitude.ToString("F6");
-                    string distancia = PANEL.Instance.distancia.Text + " Metros";
-                    string altitud = GPSProcessor.Instance.Altitude.ToString("F2") + " Metros";
+                    string distancia = PANEL.Instance.distancia.Text;
+                    string distancia_total = distancia + " + " + PANEL.Instance.dist_total.Text;
+                    //string altitud = GPSProcessor.Instance.Altitude.ToString("F2") + " Metros";
 
                     Bitmap bitmap = new Bitmap(gp_camera.Image);
                     string fileName = $"captura_{DateTime.Now:yyyyMMddHHmmss}.jpg";
                     string fullPath = Path.Combine(folderPath, fileName);
-                     
+                    /* 
                     string[] texto = new string[]
                     {
                 $"Fecha: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
                 $"Latitud: {latitud}",
                 $"Longitud: {longitud}",
-                $"Distancia: {distancia}",
+                $"Distancia Total: {distancia_total}",
                 $"Altitud: {altitud}"
                     };
 
                     // Agregar texto a la imagen usando la clase EditarFoto
                     AgregarTexto(bitmap, texto);
-
+                    */
                     // Verificar que la carpeta de destino exista
                     Directory.CreateDirectory(folderPath);
 
@@ -163,13 +165,14 @@ namespace LURA
 
                     // Llamada a la base de datos y mensaje de confirmación en el hilo de UI
 
-                    _mongoDBHelper.InsertDocument(DateTime.UtcNow, latitud, longitud, altitud, fileName);
-                    MessageBox.Show($"Imagen capturada y guardada en: {fullPath}", "Captura Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _mongoDBHelper.InsertDocument(DateTime.UtcNow, latitud, longitud, distancia_total, fileName);
+                    //MessageBox.Show($"Imagen capturada y guardada en: {fullPath}", "Captura Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
+                //catch (Exception ex)
+                catch (Exception)
                 {
                     // Mostrar error en el hilo de UI
-                        MessageBox.Show("Error al capturar y guardar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("Error al capturar y guardar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             });
         }
