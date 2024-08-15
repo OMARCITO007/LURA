@@ -470,7 +470,7 @@
             this.zero_pulsos.Name = "zero_pulsos";
             this.zero_pulsos.Size = new System.Drawing.Size(100, 30);
             this.zero_pulsos.TabIndex = 45;
-            this.zero_pulsos.Text = "Zero";
+            this.zero_pulsos.Text = "ZERO";
             this.zero_pulsos.UseVisualStyleBackColor = false;
             this.zero_pulsos.Click += new System.EventHandler(this.zero_pulsos_Click);
             // 

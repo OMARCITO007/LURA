@@ -12,6 +12,8 @@ using MongoDB.Bson.Serialization.Attributes;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Windows.Forms;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace LURA
 {
@@ -170,6 +172,58 @@ namespace LURA
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al exportar la tabla a PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+
+    public class ExportadorExcel
+    {
+        private readonly DataGridView _dataGridView;
+
+        public ExportadorExcel(DataGridView dataGridView)
+        {
+            _dataGridView = dataGridView ?? throw new ArgumentNullException(nameof(dataGridView));
+        }
+
+        public void Exportar(string filePath)
+        {
+            try
+            {
+                // Configurar el contexto de licencia de EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.Commercial; // O LicenseContext.NonCommercial
+
+                // Crear un nuevo paquete de Excel
+                using (var package = new ExcelPackage())
+                {
+                    // Agregar una nueva hoja al paquete
+                    var worksheet = package.Workbook.Worksheets.Add("Datos");
+
+                    // Agregar encabezados de columna
+                    for (int i = 0; i < _dataGridView.Columns.Count; i++)
+                    {
+                        worksheet.Cells[1, i + 1].Value = _dataGridView.Columns[i].HeaderText;
+                        worksheet.Cells[1, i + 1].Style.Font.Bold = true;
+                    }
+
+                    // Agregar filas de datos
+                    for (int i = 0; i < _dataGridView.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < _dataGridView.Columns.Count; j++)
+                        {
+                            worksheet.Cells[i + 2, j + 1].Value = _dataGridView.Rows[i].Cells[j].Value?.ToString() ?? "";
+                        }
+                    }
+
+                    // Guardar el archivo
+                    FileInfo fi = new FileInfo(filePath);
+                    package.SaveAs(fi);
+                }
+
+                MessageBox.Show($"Tabla exportada exitosamente a:\n{filePath}", "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar la tabla a Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

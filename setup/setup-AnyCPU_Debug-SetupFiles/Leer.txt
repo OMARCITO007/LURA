@@ -1,0 +1,7 @@
+- Instalar MongoDB.msi --- seguir las instrucciones
+- Instalar Lura.msi  --- seguir la instrucciones
+
+- Ingresar a C:\Program Files\MongoDB\Server\7.0\bin
+- Ejecutar mongod.exe --- es el servidor crear un acceso directo al escritorio, es importante iniciarlo antes de abrir la aplicación de Lura
+
+- Ejecutar la aplicación de Lura.exe con el acceso directo del escritorio como ADMINISTRADOR
