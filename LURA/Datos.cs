@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
+
 namespace LURA
 {
     public partial class Datos : UserControl
@@ -113,7 +114,7 @@ namespace LURA
                 MessageBox.Show("El servidor de base de datos no está activo. Por favor, active el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /*
         private void Exportar_Click(object sender, EventArgs e)
         {
             if (_mongoDBHelper.IsServerActive())
@@ -140,6 +141,41 @@ namespace LURA
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error al exportar la tabla a PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("El servidor de base de datos no está activo. Por favor, active el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        */
+        private void Exportar_Click(object sender, EventArgs e)
+        {
+            if (_mongoDBHelper.IsServerActive())
+            {
+                try
+                {
+                    // Verificar si la tabla tiene datos
+                    if (fotosDataGridView.Rows.Count == 0)
+                    {
+                        MessageBox.Show("No hay datos para exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    {
+                        Filter = "Archivo Excel (*.xlsx)|*.xlsx",
+                        Title = "Guardar como Excel"
+                    };
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+                        var exportadorExcel = new ExportadorExcel(fotosDataGridView);
+                        exportadorExcel.Exportar(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al exportar la tabla a Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

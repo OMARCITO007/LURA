@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LURA
 {
@@ -22,32 +23,42 @@ namespace LURA
 
         public void ProcessNMEAData(string data)
         {
-            if (data.StartsWith("$GPGGA") || data.StartsWith("$GNGGA"))
+            // Ejecutar el procesamiento de datos en un hilo en segundo plano
+            Task.Run(() =>
             {
-                // Ejemplo de datos: $GPGGA,014401.000,1200.2674,S,07659.4726,W,1,11,0.80,270.0,M,8.5,M,,*5D
-                string[] parts = data.Split(',');
-
-                if (parts.Length >= 10)
+                if (data.StartsWith("$GPGGA") || data.StartsWith("$GNGGA"))
                 {
-                    string latitudeStr = parts[2];
-                    string latitudeDirection = parts[3];
-                    string longitudeStr = parts[4];
-                    string longitudeDirection = parts[5];
-                    string altitudeStr = parts[9];
+                    // Ejemplo de datos: $GPGGA,014401.000,1200.2674,S,07659.4726,W,1,11,0.80,270.0,M,8.5,M,,*5D
+                    string[] parts = data.Split(',');
 
-                    if (double.TryParse(latitudeStr, out double latitude) &&
-                        double.TryParse(longitudeStr, out double longitude) &&
-                        double.TryParse(altitudeStr, out double altitude))
+                    if (parts.Length >= 10)
                     {
-                        Latitude = ConvertToDecimalDegrees(latitude, latitudeDirection);
-                        Longitude = ConvertToDecimalDegrees(longitude, longitudeDirection);
-                        Altitude = altitude;
+                        string latitudeStr = parts[2];
+                        string latitudeDirection = parts[3];
+                        string longitudeStr = parts[4];
+                        string longitudeDirection = parts[5];
+                        string altitudeStr = parts[9];
 
-                        // Notificar que se recibieron nuevos datos
-                        DataReceived?.Invoke(this, new DataReceivedEventArgs(Latitude, Longitude, Altitude));
+                        // Parsear los datos NMEA en el hilo en segundo plano
+                        if (double.TryParse(latitudeStr, out double latitude) &&
+                            double.TryParse(longitudeStr, out double longitude) &&
+                            double.TryParse(altitudeStr, out double altitude))
+                        {
+                            // Convertir las coordenadas a grados decimales
+                            double convertedLatitude = ConvertToDecimalDegrees(latitude, latitudeDirection);
+                            double convertedLongitude = ConvertToDecimalDegrees(longitude, longitudeDirection);
+
+                            // Asignar los valores en el hilo principal
+                            Latitude = convertedLatitude;
+                            Longitude = convertedLongitude;
+                            Altitude = altitude;
+
+                            // Invocar el evento en el hilo principal para que la UI no tenga problemas
+                            DataReceived?.Invoke(this, new DataReceivedEventArgs(Latitude, Longitude, Altitude));
+                        }
                     }
                 }
-            }
+            });
         }
 
         private double ConvertToDecimalDegrees(double coord, string direction)
@@ -63,6 +74,7 @@ namespace LURA
 
             return decimalDegrees;
         }
+
     }
 
     public class DataReceivedEventArgs : EventArgs

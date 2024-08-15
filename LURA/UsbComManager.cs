@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LURA
@@ -20,6 +22,8 @@ namespace LURA
         private Button btn_conectar_gps;
         private Button btn_conectar_enc;
         //private GPSProcessor gpsProcessor;
+        private Control _uiControl;
+
 
         public event EventHandler<GPSDataReceivedEventArgs> GPSDataReceived;
         public event EventHandler<EncUpdEncoderEventArgs> ENCDataReceived;
@@ -39,6 +43,12 @@ namespace LURA
                 return instance;
             }
         }
+
+        public void SetUiControl(Control uiControl)
+        {
+            _uiControl = uiControl;
+        }
+
         //public UsbComManager(ComboBox comboBoxGPS, Button connectButtonGPS, ComboBox comboBoxEncoder, Button connectButtonEncoder)
         public void Initialize(ComboBox comboBoxGPS, Button connectButtonGPS, ComboBox comboBoxEncoder, Button connectButtonEncoder)
         {
@@ -182,14 +192,19 @@ namespace LURA
         {
             if (serialPortEncoder != null && serialPortEncoder.IsOpen)
             {
-                try
+                // Ejecutar el envío del comando en segundo plano
+                Task.Run(() =>
                 {
-                    serialPortEncoder.WriteLine(command);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al enviar comando: {ex.Message}");
-                }
+                    try
+                    {
+                        serialPortEncoder.WriteLine(command);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Mostrar mensaje en el hilo principal si ocurre un error
+                            MessageBox.Show($"Error al enviar comando: {ex.Message}");
+                    }
+                });
             }
             else
             {
@@ -197,44 +212,91 @@ namespace LURA
             }
         }
 
+
         private void DisconnectGPS()
         {
-            if (serialPortGPS != null && serialPortGPS.IsOpen)
+            try
             {
-                serialPortGPS.Close();
-                btn_conectar_gps.Text = "Conectar";
-                //serialPortGPS = null;
-                portCheckTimer.Start();
-                list_gps.Enabled = true;               
+                if (serialPortGPS != null && serialPortGPS.IsOpen)
+                {
+                    serialPortGPS.Close();
+                    btn_conectar_gps.Text = "Conectar";
+                    //serialPortGPS = null;
+                    portCheckTimer.Start();
+                    list_gps.Enabled = true;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error al cerrar el puerto GPS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Operación inválida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al desconectar el GPS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+
         private void DisconnectEncoder()
         {
-            if (serialPortEncoder != null && serialPortEncoder.IsOpen)
+            try
             {
-                serialPortEncoder.Close();
-                btn_conectar_enc.Text = "Conectar";
-                //serialPortEncoder = null;
-                portCheckTimer.Start();
-                list_usb_encoder.Enabled = true;             
+                if (serialPortEncoder != null && serialPortEncoder.IsOpen)
+                {
+                    serialPortEncoder.Close();
+                    btn_conectar_enc.Text = "Conectar";
+                    //serialPortEncoder = null;
+                    portCheckTimer.Start();
+                    list_usb_encoder.Enabled = true;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error al cerrar el puerto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Operación inválida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex) // Captura cualquier otra excepción
+            {
+                MessageBox.Show("Ocurrió un error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void SerialPortGPS_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
                 string data = serialPortGPS.ReadLine();
-                GPSProcessor.Instance.ProcessNMEAData(data);
-                OnGPSDataReceived(GPSProcessor.Instance.Latitude, GPSProcessor.Instance.Longitude, GPSProcessor.Instance.Altitude);
+
+                // Ejecutar el procesamiento de datos en segundo plano
+                Task.Run(() =>
+                {
+                    GPSProcessor.Instance.ProcessNMEAData(data);
+
+                    // Invocar actualización en el hilo principal
+                    _uiControl?.Invoke(new Action(() =>
+                    {
+                        OnGPSDataReceived(GPSProcessor.Instance.Latitude, GPSProcessor.Instance.Longitude, GPSProcessor.Instance.Altitude);
+                    }));
+                });
             }
             catch
             {
+                // Mostrar mensaje de error
                 //MessageBox.Show("Error al recibir datos del GPS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DisconnectGPS(); // Attempt to disconnect on error
+
+                // Intentar desconectar en caso de error
+                DisconnectGPS();
             }
         }
+
 
         private void SerialPortEncoder_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {

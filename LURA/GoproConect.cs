@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.IO;
-using System.Drawing.Imaging;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace LURA
 {
@@ -27,6 +19,9 @@ namespace LURA
         private ComboBox list_gp;
         private string folderPath;
         private MongoDBHelper _mongoDBHelper;
+
+        private DateTime _lastFrameTime = DateTime.MinValue;
+        private readonly int _frameIntervalMs = 100; // Actualiza cada 100ms (~10 FPS)
 
         public GoproConect(PictureBox pictureBox, ComboBox comboBox)
         {
@@ -61,49 +56,82 @@ namespace LURA
             {
                 try
                 {
+                    // Detener cualquier cámara que esté en ejecución antes de iniciar una nueva conexión
                     if (videoSource != null && videoSource.IsRunning)
                     {
                         videoSource.SignalToStop();
                         videoSource.WaitForStop();
                     }
 
+                    // Verificar que el usuario haya seleccionado un dispositivo
+                    if (list_gp.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Por favor, selecciona un dispositivo de cámara.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Obtener el dispositivo seleccionado
                     var selectedDeviceIndex = list_gp.SelectedIndex;
                     var selectedDevice = videoDevices[selectedDeviceIndex];
+
+                    // Actualizar la interfaz de usuario
                     btn_conectar_gp.Text = "Desconectar";
                     list_gp.Enabled = false;
 
+                    // Iniciar la cámara con el dispositivo seleccionado
                     videoSource = new VideoCaptureDevice(selectedDevice.MonikerString);
                     videoSource.NewFrame += new NewFrameEventHandler(videoSource_NewFrame);
                     videoSource.Start();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error al conectar con la cámara: " + ex.Message);
+                    MessageBox.Show("Error al conectar con la cámara: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (btn_conectar_gp.Text == "Desconectar")
             {
-                DetenerCaptura();
-                btn_conectar_gp.Text = "Conectar";
-                list_gp.Enabled = true;
-                gp_camera.Image = LURA.Properties.Resources.Group_245; ;
+                try
+                {
+                    DetenerCaptura();
+                    btn_conectar_gp.Text = "Conectar";
+                    list_gp.Enabled = true;
+
+                    // Restaurar imagen predeterminada cuando se desconecta la cámara
+                    gp_camera.Image = LURA.Properties.Resources.Group_245;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al desconectar la cámara: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
+
 
         private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             try
             {
-                Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
-                gp_camera.Invoke(new Action(() =>
-                {
-                    if (gp_camera.Image != null)
-                    {
-                        gp_camera.Image.Dispose();
-                    }
+                var currentTime = DateTime.Now;
+                if ((currentTime - _lastFrameTime).TotalMilliseconds < _frameIntervalMs)
+                    return; // Saltar frames si no ha pasado suficiente tiempo
 
-                    gp_camera.Image = bitmap;
-                }));
+                _lastFrameTime = currentTime;  // Actualiza el tiempo del último frame procesado
+
+                // Clonar el frame actual de la cámara
+                using (Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone())
+                {
+                    // Actualizar la imagen de la interfaz gráfica en el hilo principal
+                    gp_camera.Invoke(new Action(() =>
+                    {
+                        if (gp_camera.Image != null)
+                        {
+                            gp_camera.Image.Dispose();  // Liberar la imagen anterior
+                        }
+
+                        gp_camera.Image = (Bitmap)bitmap.Clone();  // Asignar la nueva imagen
+                    }));
+                }
             }
             catch (Exception ex)
             {
@@ -111,14 +139,26 @@ namespace LURA
             }
         }
 
+
         public void DetenerCaptura()
         {
             if (videoSource != null && videoSource.IsRunning)
             {
-                videoSource.SignalToStop();
-                videoSource.WaitForStop();
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        videoSource.SignalToStop();
+                        videoSource.WaitForStop();
+                    }
+                    catch (Exception ex)
+                    {
+                            MessageBox.Show("Error al detener la captura de video: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                });
             }
         }
+
 
         public void CaptureImage()
         {
@@ -137,7 +177,7 @@ namespace LURA
                     string latitud = GPSProcessor.Instance.Latitude.ToString("F6");
                     string longitud = GPSProcessor.Instance.Longitude.ToString("F6");
                     string distancia = PANEL.Instance.distancia.Text;
-                    string distancia_total = distancia + " + " + PANEL.Instance.dist_total.Text;
+                    string distancia_total = PANEL.Instance.dist_total.Text + " Km";
                     //string altitud = GPSProcessor.Instance.Altitude.ToString("F2") + " Metros";
 
                     Bitmap bitmap = new Bitmap(gp_camera.Image);
