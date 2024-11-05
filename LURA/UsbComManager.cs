@@ -287,7 +287,7 @@ namespace LURA
                     }));
                 });
             }
-            catch
+            catch (Exception ex)
             {
                 // Mostrar mensaje de error
                 //MessageBox.Show("Error al recibir datos del GPS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
